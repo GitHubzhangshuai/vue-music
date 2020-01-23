@@ -43,7 +43,9 @@ export default {
   props: {
     data: {
       type: Array,
-      default: []
+      default: function () {
+        return []
+      }
     }
   },
   computed: {
