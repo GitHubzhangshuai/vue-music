@@ -28,7 +28,7 @@ let vendor = (() => {
     Moz: 'MozTransform',
     O: 'OTransform',
     ms: 'msTransform',
-    standart: 'transform'
+    standard: 'transform'
   }
 
   for (let key in transformNames) {
@@ -47,5 +47,5 @@ export function prefixStyle (style) {
     return style
   }
 
-  return vendor + style.charAt(0).toUpperCase()
+  return vendor + style.charAt(0).toUpperCase() + style.substr(1)
 }
