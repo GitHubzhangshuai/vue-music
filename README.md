@@ -1,4 +1,6 @@
 # vue-music
+预览地址
+https://githubzhangshuai.github.io/vue-music/
 
 > A Vue.js project
 
