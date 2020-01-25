@@ -30,6 +30,7 @@
         <loading></loading>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -39,6 +40,7 @@ import Loading from 'base/loading/loading'
 import Scroll from 'base/scroll/scroll'
 import {ERR_OK} from 'api/config'
 import {getRecommend, getDiscList} from 'api/recommend'
+import {mapMutations} from 'vuex'
 
 export default{
   data () {
@@ -59,7 +61,11 @@ export default{
       }
     },
     selectItem (item) {
-      console.log(item)
+      // console.log(item)
+      this.$router.push({
+        path: `/recommend/${item.dissid}`
+      })
+      this.setDisc(item)
     },
     _getRecommend () {
       getRecommend().then((res) => {
@@ -75,7 +81,10 @@ export default{
           this.discList = res.data.list
         }
       })
-    }
+    },
+    ...mapMutations({
+      setDisc: 'SET_DISC'
+    })
   },
   components: {
     Slider,

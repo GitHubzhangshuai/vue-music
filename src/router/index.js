@@ -4,7 +4,8 @@ import Recommend from 'components/recommend/recommend'
 import Singer from 'components/singer/singer'
 import Search from 'components/search/search'
 import Rank from 'components/rank/rank'
-import singerDetail from 'components/singer-detail/singer-detail'
+import SingerDetail from 'components/singer-detail/singer-detail'
+import Disc from 'components/disc/disc'
 
 Vue.use(Router)
 // 解决两次访问相同路由地址报错
@@ -28,7 +29,11 @@ export default new Router({
     {
       path: '/recommend',
       name: 'Recommend',
-      component: Recommend
+      component: Recommend,
+      children: [{
+        path: ':id',
+        component: Disc
+      }]
     },
     {
       path: '/singer',
@@ -36,8 +41,8 @@ export default new Router({
       component: Singer,
       children: [{
         path: ':id',
-        name: 'singerDetail',
-        component: singerDetail
+        name: 'SingerDetail',
+        component: SingerDetail
       }]
     },
     {
