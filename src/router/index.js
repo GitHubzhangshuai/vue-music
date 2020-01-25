@@ -6,6 +6,7 @@ import Search from 'components/search/search'
 import Rank from 'components/rank/rank'
 import SingerDetail from 'components/singer-detail/singer-detail'
 import Disc from 'components/disc/disc'
+import Toplist from 'components/top-list/top-list'
 
 Vue.use(Router)
 // 解决两次访问相同路由地址报错
@@ -48,7 +49,11 @@ export default new Router({
     {
       path: '/rank',
       name: 'rank',
-      component: Rank
+      component: Rank,
+      children: [{
+        path: ':id',
+        component: Toplist
+      }]
     },
     {
       path: '/search',
