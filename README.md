@@ -2,6 +2,8 @@
 预览地址
 https://githubzhangshuai.github.io/vue-music/
 
+参考https://blog.csdn.net/tcf_jingfeng/article/details/86739589解决播放链接失效问题
+
 > A Vue.js project
 
 ## Build Setup

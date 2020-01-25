@@ -79,6 +79,23 @@ apiRoutes.get('/lyric', function (req, res) {
   })
 })
 
+apiRoutes.get('/getplaysongvkey', function (req, res) {
+  var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
+  // 设置允许跨域的域名，*代表允许任意域名跨域
+  res.header('Access-Control-Allow-Origin', '*')
+  axios.get(url, {
+    headers: {
+      origin: 'https://y.qq.com',
+      referer: 'https://y.qq.com/portal/player.html'
+    },
+    params: req.query
+  }).then((response) => {
+    res.json(response.data)
+  }).catch((e) => {
+    console.log(e)
+  })
+})
+
 app.use('/api', apiRoutes)
 
 var server = app.listen(10000)

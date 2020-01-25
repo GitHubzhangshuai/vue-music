@@ -31,8 +31,9 @@ import Scroll from 'base/scroll/scroll'
 import Loading from 'base/loading/loading'
 import {prefixStyle} from 'common/js/dom'
 import SongList from 'base/song-list/song-list'
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 import {playlistMixin} from 'common/js/mixin'
+import {getplaysongvkey} from 'api/song'
 const RESERVED_HEIGHT = 40
 const transform = prefixStyle('transform')
 const backdrop = prefixStyle('backdrop-filter')
@@ -86,6 +87,13 @@ export default {
       this.$refs.list.refresh()
     },
     selectItem (item, index) {
+      getplaysongvkey(item.mid).then((vkey) => {
+        let url = `http://dl.stream.qqmusic.qq.com/${vkey}`
+        this.setPlaylistUrl({
+          index,
+          url
+        })
+      })
       this.selectPlay({list: this.songs, index})
     },
     scroll (pos) {
@@ -100,7 +108,10 @@ export default {
     ...mapActions([
       'selectPlay',
       'randomPlay'
-    ])
+    ]),
+    ...mapMutations({
+      setPlaylistUrl: 'SET_PLAYLIST_URL'
+    })
   },
   watch: {
     // songs (x) { console.log(x) },

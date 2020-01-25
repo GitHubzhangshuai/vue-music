@@ -36,6 +36,11 @@ const mutations = {
   },
   [types.SET_FAVORITE_LIST] (state, list) {
     state.favoriteList = list
+  },
+  [types.SET_PLAYLIST_URL] (state, keyUrl) {
+    let index = keyUrl.index
+    let url = keyUrl.url
+    state.playlist[index].url = url
   }
 }
 
