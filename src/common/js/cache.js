@@ -53,6 +53,7 @@ export function clearSearch () {
   return []
 }
 export function loadSearch () {
+  console.log(storage.get(SEARCH_KEY, []))
   return storage.get(SEARCH_KEY, [])
 }
 
@@ -62,6 +63,7 @@ export function savePlay (song) {
     return song.id === item.id
   }, PLAY_MAX_LEN)
   storage.set(PLAY_KEY, songs)
+  console.log(songs)
   return songs
 }
 
@@ -83,7 +85,7 @@ export function deleteFavorite (song) {
   deleteFromArray(songs, (item) => {
     return item.id === song.id
   })
-  storage.set(FAVORITE_KEY, song)
+  storage.set(FAVORITE_KEY, songs)
   return songs
 }
 

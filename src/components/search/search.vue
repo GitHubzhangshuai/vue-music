@@ -54,6 +54,8 @@ export default {
   },
   computed: {
     shortcut () {
+      console.log(this.hotKey)
+      console.log(this.searchHistory)
       return this.hotKey.concat(this.searchHistory)
     }
   },

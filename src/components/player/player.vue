@@ -97,6 +97,7 @@
     <playlist ref="playlist"></playlist>
     <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime"
            @ended="end"></audio>
+           <confirm ref="confirm" text="很抱歉此首音乐只有歌词" confirmBtnText="我要离开" cancelBtnText="我只看歌词" @cancel="cancel" @confirm="confirm"></confirm>
   </div>
 </template>
 
@@ -104,6 +105,7 @@
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 import animations from 'create-keyframe-animation'
 import {prefixStyle} from 'common/js/dom'
+import Confirm from 'base/confirm/confirm'
 import ProgressBar from 'base/progress-bar/progress-bar'
 import ProgressCircle from 'base/progress-circle/progress-circle'
 import Lyric from 'lyric-parser'
@@ -162,6 +164,20 @@ export default {
     this.touch = {}
   },
   methods: {
+    cancel () {
+      const time = 3000
+      const offsetWidth = -window.innerWidth
+      const opacity = 0
+      this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+      this.$refs.lyricList.$el.style[transitionDuration] = `${time}ms`
+      this.$refs.middleL.style.opacity = opacity
+      this.$refs.middleL.style[transitionDuration] = `${time}ms`
+      this.currentShow = 'lyric'
+      return null
+    },
+    confirm () {
+      this.$router.go(0)
+    },
     showPlaylist () {
       this.$refs.playlist.show()
     },
@@ -296,18 +312,22 @@ export default {
     },
     ready () {
       this.songReady = true
-      // this.savePlayHistory(this.currentSong)
+      this.savePlayHistory(this.currentSong)
     },
     error () {
+      if (this.currentSong.url === '') { return }
       this.songReady = true
+      this.$refs.confirm.show()
     },
     updateTime (e) {
       this.currentTime = e.target.currentTime
     },
     format (interval) {
+      // console.log(interval)
       interval = interval | 0
       const minute = interval / 60 | 0
       const second = this._pad(interval % 60)
+      // console.log(minute, second)
       return `${minute}:${second}`
     },
     onProgressBarChange (percent) {
@@ -436,7 +456,7 @@ export default {
       setPlaylist: 'SET_PLAYLIST'
     }),
     ...mapActions([
-      // 'savePlayHistory'
+      'savePlayHistory'
     ])
   },
   watch: {
@@ -477,7 +497,8 @@ export default {
     ProgressBar,
     ProgressCircle,
     Scroll,
-    Playlist
+    Playlist,
+    Confirm
   }
 }
 </script>

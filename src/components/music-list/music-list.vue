@@ -36,7 +36,7 @@ import {playlistMixin} from 'common/js/mixin'
 import {getplaysongvkey} from 'api/song'
 const RESERVED_HEIGHT = 40
 const transform = prefixStyle('transform')
-const backdrop = prefixStyle('backdrop-filter')
+const backdrop = prefixStyle('backdropFilter')
 
 export default {
   mixins: [playlistMixin],
@@ -129,6 +129,7 @@ export default {
       }
 
       this.$refs.layer.style[transform] = `translate3d(0,${translateY}px,0`
+      console.log(backdrop)
       this.$refs.filter.style[backdrop] = `blur(${blur}px)`
       if (newVal < this.minTranslateY) {
         zIndex = 10

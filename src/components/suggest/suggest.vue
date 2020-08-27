@@ -150,8 +150,8 @@ export default {
     ])
   },
   watch: {
-    query (newQuery) {
-      this.search(newQuery)
+    query () {
+      this.search()
     }
   },
   components: {
